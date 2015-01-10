@@ -1,6 +1,7 @@
 
 var fs = require('fs')
 var http = require('http')
+var https = require('https')
 var url = require('url')
 
 module.exports = function download(from, to) {
@@ -9,7 +10,9 @@ module.exports = function download(from, to) {
     url.parse(from).pathname.split('/').pop()
   )
 
-  http.get(from, function (res) {
+  var mod = /^https:/.test(from) ? https : http
+
+  mod.get(from, function (res) {
 
     var total = parseFloat(res.headers['content-length'])
     var received = 0
