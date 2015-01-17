@@ -7,7 +7,7 @@ var url = require('url')
 module.exports = function download(from, to) {
 
   var file = fs.createWriteStream(to ||
-    url.parse(from).pathname.split('/').pop()
+    unescape(url.parse(from).pathname.split('/').pop())
   )
 
   var mod = /^https:/.test(from) ? https : http
